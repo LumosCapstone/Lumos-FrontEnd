@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Lumos</string>
+
+    <!-- Common Strings -->
+    <string name="logout">Logout</string>
+    <string name="profilePage">Profile Page</string>
+
+    <!-- Login/Register Strings -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="loginEmailHint">Email</string>
+    <string name="loginPasswordHint">Password</string>
+
+    <string name="registerCreateAccount">Create Account</string>
+    <string name="registerPasswordHint">Create Password</string>
+    <string name="registerNameHint">Name</string>
+
 </resources>
