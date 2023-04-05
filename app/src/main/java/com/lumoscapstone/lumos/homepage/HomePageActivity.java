@@ -16,7 +16,6 @@ import com.lumoscapstone.lumos.login.LoginActivity;
 public class HomePageActivity extends AppCompatActivity {
     private static final String PREFERENCES_KEY = "com.lumoscapstone.lumos.PREFERENCES_KEY";
 
-
     ActivityHomePageBinding binding;
 
     // User Shared Preferences
@@ -47,8 +46,6 @@ public class HomePageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     private void getPrefs(){
