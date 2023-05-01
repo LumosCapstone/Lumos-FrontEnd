@@ -5,6 +5,10 @@
     <string name="logout">Logout</string>
     <string name="profilePage">Profile Page</string>
 
+    <!-- Splash Screen String -->
+    <string name="lumos_logo">Lumos Logo</string>
+    <string name="lumos">LUMOS</string>
+
     <!-- Login/Register Strings -->
     <string name="login">Login</string>
     <string name="register">Register</string>
