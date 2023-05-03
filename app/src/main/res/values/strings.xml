@@ -19,5 +19,6 @@
     <string name="registerCreateAccount">Create Account</string>
     <string name="registerPasswordHint">Create Password</string>
     <string name="registerNameHint">Name</string>
+    <string name="registerPhoneHint">Phone Number</string>
 
 </resources>

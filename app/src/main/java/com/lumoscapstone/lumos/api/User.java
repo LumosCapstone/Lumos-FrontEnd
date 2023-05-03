@@ -7,6 +7,8 @@ public class User {
 
     // Member Variables
     private int id;
+
+    private Integer userId;
     private String name;
     private String email;
     private String phoneNumber;
@@ -15,6 +17,13 @@ public class User {
     // JSON object as a string
     @SerializedName("body")
     private String text;
+
+    public User(int id, String name, String email, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 
     public int getId() {
         return id;

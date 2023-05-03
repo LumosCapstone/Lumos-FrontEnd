@@ -12,6 +12,7 @@ import com.lumoscapstone.lumos.R;
 
 import com.lumoscapstone.lumos.databinding.ActivityHomePageBinding;
 import com.lumoscapstone.lumos.login.LoginActivity;
+import com.lumoscapstone.lumos.profile.ProfileActivity;
 
 public class HomePageActivity extends AppCompatActivity {
     private static final String PREFERENCES_KEY = "com.lumoscapstone.lumos.PREFERENCES_KEY";
@@ -31,6 +32,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         // Temporary Logout Button, should be moved to profile page when it exists
         Button logoutButton = binding.tempLogoutButton;
+        Button profileButton = binding.tempProfileButton;
 
         // Get user shared preferences
         getPrefs();
@@ -43,6 +45,16 @@ public class HomePageActivity extends AppCompatActivity {
 
                 // Redirect to login page
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Redirect to profile page
+                Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(intent);
             }
         });

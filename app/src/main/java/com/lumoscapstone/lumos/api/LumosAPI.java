@@ -1,11 +1,7 @@
 package com.lumoscapstone.lumos.api;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -31,7 +27,8 @@ public interface LumosAPI {
     // Get item details by item ID (not sure if correct)
 //    @GET("api/item/{id}")
 //    Call<Item> getItem(@Path("id") int itemId);
-
+    @POST("api/register")
+    Call<User> registerUser(@Body UserRegister register);
     // Attempt to reserve an item
     // TODO: add definition of this POST method
     // Resource to help with this: https://www.youtube.com/watch?v=GP5OyYDu_mU&list=PLrnPJCHvNZuCbuD3xpfKzQWOj3AXybSaM&index=3
