@@ -15,7 +15,7 @@ public class homePage {
     private String seller_email;
     private int seller_phone;
 
-    //possibly use images?
+    //n
 //    private char images;
 
     @SerializedName("body")

@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 String json = "";
                 json = "ID= " + response.body().getId() +
                         "\n name= " + response.body().getName() +
-                        "\n type= " + response.body().getType();
+                        "\n type= " + response.body().getType() +
+                        "\n quantity= " + response.body().getQuantity();
                 text_result.append(json);
 
 
