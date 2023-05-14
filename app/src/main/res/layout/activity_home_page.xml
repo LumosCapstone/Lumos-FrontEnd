@@ -35,4 +35,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/homepageLumos" />
 
+    <Button
+        android:id="@+id/tempProfileButton"
+        android:layout_width="130dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="108dp"
+        android:gravity="center"
+        android:text="Profile"
+        android:textSize="18sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homepageLumos"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
