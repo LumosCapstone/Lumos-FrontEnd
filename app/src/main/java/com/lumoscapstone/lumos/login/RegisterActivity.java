@@ -5,47 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lumoscapstone.lumos.R;
-import com.lumoscapstone.lumos.api.LoginResponse;
-import com.lumoscapstone.lumos.api.LumosAPI;
-import com.lumoscapstone.lumos.api.User;
-import com.lumoscapstone.lumos.api.UserRegister;
 import com.lumoscapstone.lumos.databinding.ActivityRegisterBinding;
 import com.lumoscapstone.lumos.homepage.HomePageActivity;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class RegisterActivity extends AppCompatActivity {
-
-    // User Shared Preferences
-    SharedPreferences mSharedPreferences;
-    int mUserId = -1;
 
     ActivityRegisterBinding binding;
 
-    EditText mNameField;
-    EditText mEmailField;
-    EditText mPasswordField;
-    EditText mPhoneNumberField;
+    private EditText mNameField, mEmailField,  mPasswordField, mPhoneField, mAddressField;
 
-    Button mRegisterButton;
-
-    private final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("https://lumos.benjaminwoodward.dev/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    private final LumosAPI lumosAPI = retrofit.create(LumosAPI.class);
+    private String mName, mEmail, mPassword, mPhone, mAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,78 +33,50 @@ public class RegisterActivity extends AppCompatActivity {
         mNameField = binding.registerNameEditText;
         mEmailField = binding.registerEmailEditText;
         mPasswordField = binding.registerPasswordEditText;
-        mPhoneNumberField = binding.registerPhoneEditText;
+        mPhoneField = binding.registerPhoneEditText;
+        mAddressField = binding.registerAddressEditText;
 
-        mRegisterButton = binding.RegisterButton;
+        Button registerButton = binding.registerRegisterButton;
 
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            final String nameField = mNameField.toString();
-            final String emailField = mEmailField.toString();
-            final String passwordField = mPasswordField.toString();
-            final String phonenumberField = mPhoneNumberField.toString();
-
-            final UserRegister registerUser = new UserRegister(nameField, emailField, passwordField, phonenumberField);
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //call to register user
-                Call<User> call = lumosAPI.registerUser(registerUser);
-                call.enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        handleRegisterResponse(response);
-                    }
+                if(checkAllFields()) {
+                    Toast.makeText(RegisterActivity.this, "Successfully Registered.", Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-                //after user registers, they are sent to homepage
-                Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
-                startActivity(intent);
+                    Intent intent = new Intent(RegisterActivity.this, HomePageActivity.class);
+                    startActivity(intent);
+                }
             }
         });
     }
 
-    private void handleRegisterResponse(Response<User> response) {
-        if (!response.isSuccessful()) {
-            // handle the error case
-            Log.e("response_error", "Response Code: response.code()");
-            RegisterError(response.code());
-            return;
+    private boolean checkAllFields(){
+        mName = mNameField.getText().toString().trim();
+        mEmail = mEmailField.getText().toString().trim();
+        mPassword = mPasswordField.getText().toString().trim();
+        mPhone = mPhoneField.getText().toString().trim();
+        mAddress = mAddressField.getText().toString().trim();
+
+        // Check there's no empty fields
+        if(mName.isEmpty()) {
+            Toast.makeText(RegisterActivity.this, "Please enter your name.", Toast.LENGTH_LONG).show();
+            return false;
+        }else if(mEmail.isEmpty()) {
+            Toast.makeText(RegisterActivity.this, "Please enter your email address.", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(mPassword.isEmpty()){
+            Toast.makeText(RegisterActivity.this, "Please enter your password.", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(mPhone.isEmpty()){
+            Toast.makeText(RegisterActivity.this, "Please enter your phone number.", Toast.LENGTH_LONG).show();
+            return false;
+        } else if(mAddress.isEmpty()){
+            Toast.makeText(RegisterActivity.this, "Please enter your address.", Toast.LENGTH_LONG).show();
+            return false;
         }
 
-        User userResponse = response.body();
-        if(response.body() == null){
-            RegisterError(-1);
-        }
-        assert userResponse != null;
-        mUserId = userResponse.getId();
-
-        // Update that the user is now logged in shared preferences
-        updateSharedPreferences();
-
-        // Send user to home page
-        Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
-        startActivity(intent);
+        // User credentials successfully pulled as non-empty strings
+        return true;
     }
-    private void RegisterError(int code){
-        if(code == 401){
-            Toast.makeText(RegisterActivity.this, "Invalid credentials. Please try logging in again or register for an account.", Toast.LENGTH_SHORT).show();
-        } else if(code == -1){
-            Toast.makeText(RegisterActivity.this, "Unable to retrieve your user information at this time. Please contact support for more information.", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(RegisterActivity.this, "Oops we're having trouble on our end, contact support for more information. Response Code: " + code, Toast.LENGTH_LONG).show();
-        }
-
-        // Clear fields so user can try again
-        mEmailField.setText("");
-        mPasswordField.setText("");
-    }
-
-    private void updateSharedPreferences() {
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        editor.apply();
-    }
-
 }

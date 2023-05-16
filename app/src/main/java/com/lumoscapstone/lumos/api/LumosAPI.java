@@ -32,4 +32,8 @@ public interface LumosAPI {
     // Attempt to reserve an item
     // TODO: add definition of this POST method
     // Resource to help with this: https://www.youtube.com/watch?v=GP5OyYDu_mU&list=PLrnPJCHvNZuCbuD3xpfKzQWOj3AXybSaM&index=3
+
+    //GET /api/item/:id
+    @GET("api/item/{id}")
+    Call<Item> getItemInfo(@Path("id") int itemId);
 }

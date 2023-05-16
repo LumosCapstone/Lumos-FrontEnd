@@ -6,48 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".homepage.HomePageActivity">
 
-    <TextView
-        android:id="@+id/homepageLumos"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:fadeScrollbars="true"
-        android:gravity="center"
-        android:scrollbars="vertical"
-        android:text="@string/app_name"
-        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Temporary profile page button, eventually should be on profile page -->
-    <Button
-        android:visibility="visible"
-        tools:visibility="visible"
-        android:id="@+id/tempLogoutButton"
-        android:layout_width="130dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="25dp"
-        android:gravity="center"
-        android:text="@string/logout"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homepageLumos" />
-
-    <Button
-        android:id="@+id/tempProfileButton"
-        android:layout_width="130dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="108dp"
-        android:gravity="center"
-        android:text="Profile"
-        android:textSize="18sp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/homepageLumos"
-        tools:visibility="visible" />
+        app:menu="@menu/bottom_nav_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
