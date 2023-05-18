@@ -95,6 +95,7 @@
         android:ems="12"
         android:gravity="center"
         android:hint="@string/registerPhoneHint"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

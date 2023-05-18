@@ -22,8 +22,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.074" />
 
-    <EditText
-        android:id="@+id/registerNameEditText"
+    <TextView
+        android:id="@+id/profileNameEditText"
         android:layout_width="277dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
@@ -38,8 +38,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.336" />
 
-    <EditText
-        android:id="@+id/registerEmailEditText"
+    <TextView
+        android:id="@+id/profileEmailEditText"
         android:layout_width="277dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
@@ -55,8 +55,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.448" />
 
-    <EditText
-        android:id="@+id/registerPhoneEditText"
+    <TextView
+        android:id="@+id/profilePhoneEditText"
         android:layout_width="277dp"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
