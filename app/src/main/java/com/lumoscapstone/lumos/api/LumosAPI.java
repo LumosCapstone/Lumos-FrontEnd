@@ -28,7 +28,7 @@ public interface LumosAPI {
 //    @GET("api/item/{id}")
 //    Call<Item> getItem(@Path("id") int itemId);
     @POST("api/register")
-    Call<User> registerUser(@Body UserRegister register);
+    Call<UserResponse> registerUser(@Body UserRegister register);
     // Attempt to reserve an item
     // TODO: add definition of this POST method
     // Resource to help with this: https://www.youtube.com/watch?v=GP5OyYDu_mU&list=PLrnPJCHvNZuCbuD3xpfKzQWOj3AXybSaM&index=3
