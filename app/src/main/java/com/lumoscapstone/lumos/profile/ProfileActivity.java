@@ -1,6 +1,7 @@
 package com.lumoscapstone.lumos.profile;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +9,9 @@ import android.widget.Toast;
 
 import com.lumoscapstone.lumos.R;
 import com.lumoscapstone.lumos.api.LumosAPI;
+import com.lumoscapstone.lumos.api.ProfileResponse;
 import com.lumoscapstone.lumos.api.User;
+import com.lumoscapstone.lumos.api.UserRegister;
 import com.lumoscapstone.lumos.databinding.ActivityProfileBinding;
 
 import retrofit2.Call;
@@ -18,14 +21,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProfileActivity extends AppCompatActivity {
+    private static final String PREFERENCES_KEY = "com.lumoscapstone.lumos.PREFERENCES_KEY";
+    private static final String LOGGED_IN_KEY = "com.lumoscapstone.lumos.LOGGED_IN_KEY";
 
     ActivityProfileBinding binding;
 
     SharedPreferences mSharedPreferences;
 
+    int mUserid;
     String mNameField;
     String mEmailField;
     String mPhoneNumberField;
+
     private final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://lumos.benjaminwoodward.dev/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -41,15 +48,19 @@ public class ProfileActivity extends AppCompatActivity {
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        mNameField = String.valueOf(binding.registerNameEditText);
-        mEmailField = String.valueOf(binding.registerEmailEditText);
-        mPhoneNumberField = String.valueOf(binding.registerPhoneEditText);
+        getPrefs();
 
-        Call<User> call = lumosAPI.getUser(3);
+        mNameField = String.valueOf(binding.profileNameEditText);
+        mEmailField = String.valueOf(binding.profileEmailEditText);
+        mPhoneNumberField = String.valueOf(binding.profilePhoneEditText);
+
+
+        Call<User> call = lumosAPI.getUser(mUserid);
 
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
+                final User user = new User(mUserid,mNameField, mEmailField, mPhoneNumberField);
                 handleProfileResponse(response);
             }
             @Override
@@ -63,16 +74,19 @@ public class ProfileActivity extends AppCompatActivity {
     private void handleProfileResponse(Response<User> response) {
         if (!response.isSuccessful()) {
             // handle the error case
-            Log.e("response_error", "Response Code: response.code()");
+            Log.e("response_error", "Response Code: " + response.code());
             ProfileError(response.code());
             return;
         }
 
-        User userResponse = response.body();
+        User profileResponse = response.body();
         if(response.body() == null){
             ProfileError(-1);
         }
-        assert userResponse != null;
+        assert profileResponse != null;
+        String message = profileResponse.getText();
+        Log.e("Not_error", "Message: " + message);
+        Toast.makeText(getApplicationContext(), "Message: " + message, Toast.LENGTH_SHORT).show();
 
         // Update that the user is now logged in shared preferences
         updateSharedPreferences();
@@ -86,6 +100,10 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             Toast.makeText(ProfileActivity.this, "Oops we're having trouble on our end, contact support for more information. Response Code: " + code, Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void getPrefs() {
+        mSharedPreferences = getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
     }
 
     private void updateSharedPreferences() {
