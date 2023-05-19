@@ -129,9 +129,6 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         LoginResponse loginResponse = response.body();
-        if(response.body() == null){
-            loginError(-1);
-        }
         assert loginResponse != null;
         mUserId = loginResponse.getId();
 
@@ -146,8 +143,6 @@ public class LoginActivity extends AppCompatActivity {
     private void loginError(int code){
         if(code == 401){
             Toast.makeText(LoginActivity.this, "Invalid credentials. Please try logging in again or register for an account.", Toast.LENGTH_SHORT).show();
-        } else if(code == -1){
-            Toast.makeText(LoginActivity.this, "Unable to retrieve your user information at this time. Please contact support for more information.", Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(LoginActivity.this, "Oops we're having trouble on our end, contact support for more information. Response Code: " + code, Toast.LENGTH_LONG).show();
         }
