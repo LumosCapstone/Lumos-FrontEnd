@@ -69,10 +69,10 @@ public class HomePageActivity extends AppCompatActivity {
         getPrefs();
 
         // Load all items within 9999 miles
-        // onLoad();
+        onLoad();
 
         // Test: itemIsReserved(int itemId) (some item ID's to test: 1, 4, 6)
-        // itemIsReserved(1);
+        itemIsReserved(1);
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,6 +46,8 @@ public interface LumosAPI {
     @GET("api/item/{id}")
     Call<Item> getItemById(@Path("id") int itemId);
 
+    // These don't work due to what is believed to be RetroFit limitation, look into using URLEncoded format (API must support it) or changing the API call to take query params
+    // or path variables only. Last method to try would be a QueryMap.
 //    @GET("api/item/reserve/{id}")
 //    Call<ReserveItemResponse> reserveItemById(@Path("id") int itemId, @Query("user_id") int userId);
 //
@@ -54,5 +56,4 @@ public interface LumosAPI {
 //
 //    @POST("api/item/return/{id}")
 //    Call<ReserveItemResponse> returnItem(@Path("id") int itemId, @Query("user_id") int userId);
-
 }
